@@ -4,8 +4,9 @@ import styled from 'styled-components'
 import TerminalInput from './TerminalInput'
 
 const TerminalWindow = styled.div`
-  margin: 10px;
+  margin: auto;
   max-width: 550px;
+  width: 100%;
 `
 
 const TerminalHeader = styled.div`

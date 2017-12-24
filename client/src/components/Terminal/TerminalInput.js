@@ -27,6 +27,7 @@ class TerminalInput extends Component {
 
   handleKeydown (e) {
     // handle arrows, and enter for terminal
+    console.log(e.key)
   }
 
   render () {
