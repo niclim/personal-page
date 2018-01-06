@@ -57,7 +57,6 @@ const Content = styled.div`
 `
 
 const TextContainer = styled.div`
-  flex-grow: 1;
   display: flex;
 `
 
@@ -80,9 +79,9 @@ class Home extends Component {
           <h2>Full Stack Web Developer</h2>
         </HeadingContainer>
         <Content>
-          <TextContainer>
+          {/* <TextContainer>
             <TextCard />
-          </TextContainer>
+          </TextContainer> */}
           <TerminalContainer>
             <Terminal options={options} />
           </TerminalContainer>

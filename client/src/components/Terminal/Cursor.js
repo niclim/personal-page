@@ -3,13 +3,13 @@ import React, { Component } from 'react'
 class Cursor extends Component {
   constructor (props) {
     super(props)
-    this.state = { text: ' _' }
+    this.state = { text: '_' }
   }
 
   componentDidMount () {
     this.interval = window.setInterval(() => {
       this.setState((prevState) => ({
-        text: prevState.text === ' _' ? ' ' : ' _'
+        text: prevState.text === '_' ? ' ' : '_'
       }))
     }, 600)
   }
