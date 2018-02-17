@@ -6,6 +6,6 @@ class Node {
 
 class OptionTree {
   constructor (options) {
-    
+
   }
 }

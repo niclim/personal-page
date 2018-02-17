@@ -13,7 +13,6 @@ const InputLine = styled.pre`
   margin: 0;
 `
 
-
 class TerminalInput extends Component {
   constructor (props) {
     super(props)
@@ -50,7 +49,6 @@ class TerminalInput extends Component {
     } else if (key === 'Backspace') {
       this.setState((prevState) => ({ input: prevState.input.slice(0, -1)}))
     }
-    
   }
 
   render () {

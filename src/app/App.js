@@ -9,7 +9,7 @@ import Home from '../pages/Home'
 import NoMatch from '../pages/NoMatch'
 
 class App extends Component {
-  render() {
+  render () {
     return (
       <Router>
         <Switch>
@@ -17,7 +17,7 @@ class App extends Component {
           <Route component={NoMatch} />
         </Switch>
       </Router>
-  )
+    )
   }
 }
 
