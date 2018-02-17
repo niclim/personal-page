@@ -1,60 +1,46 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
-
-import Cursor from './Cursor'
-import keystrokes from '../../utils/keystrokes'
-
-const InputContainer = styled.div`
-  font-family: monospace;
-  color: #fff;
-`
-
-const InputLine = styled.pre`
-  margin: 0;
-`
+import {
+  InputContainer,
+  OutputLine,
+  InputLine
+} from './TerminalInput.styled'
 
 class TerminalInput extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      previousInput: [],
+      previousInput: ['hi', 'hello'],
       input: ''
     }
-    this.handleKeydown = this.handleKeydown.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount () {
-    document.addEventListener('keydown', this.handleKeydown)
+  // This will handle any input change
+  handleChange (e) {
+    this.setState({ input: e.target.value })
   }
 
-  componentWillUnmount () {
-    document.removeEventListener('keydown', this.handleKeydown)
-  }
-
-  handleKeydown (e) {
-    // prevent default
-    //
-    /**
-     * Keys to handle:
-     * arrow keys
-     * alt keys + backspace and arrows
-     * enter
-     * tab (and double tab for functionality)
-     */
-
-    let { key } = e
-    console.log(key)
-    if (key in keystrokes) {
-      this.setState((prevState) => ({ input: prevState.input + key }))
-    } else if (key === 'Backspace') {
-      this.setState((prevState) => ({ input: prevState.input.slice(0, -1)}))
+  // This will handle any "special cases" - e.g. enter and tab
+  handleKeyDown (e) {
+    const { key } = e
+    switch (key) {
+      case 'Enter':
+        // Execute
+        break
+      case 'Tab':
+        // show suggestions
+        break
     }
   }
 
   render () {
+    const { previousInput, input } = this.state
+
     return (
       <InputContainer>
-        <InputLine>~ $ {this.state.input}<Cursor /></InputLine>
+        {previousInput.map((text, i) => <OutputLine key={i}>{text}</OutputLine>)}
+        <InputLine value={input} onKeyDown={this.handleKeyDown} onChange={this.handleChange} />
       </InputContainer>
     )
   }

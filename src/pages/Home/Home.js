@@ -42,7 +42,7 @@ const HeadingContainer = styled.div`
   text-align: center;
 `
 
-const Content = styled.div`
+const Content = styled.section`
   padding: 10px 30px;
   flex-grow: 2;
   display: flex;
@@ -65,7 +65,7 @@ const TerminalContainer = styled.div`
   display: flex;
 `
 
-const Footer = styled.div`
+const Footer = styled.footer`
   background-color: #333;
   padding: 10px;
 `
