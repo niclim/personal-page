@@ -4,14 +4,8 @@ import {
   OutputLine,
   InputLine
 } from './TerminalInput.styled'
-/*
-Update this to:
-  - Use an input box and update the css styling to work and look
-    - Need to handle tab, enter
-    - Need to update the cursor styling
-  - Use it more as a selector rather than a real terminal
-    - i.e. this means it takes in options that will do different things and produce different actions
-*/
+
+import { listOptions, validateCommand } from './terminalFunctions'
 
 class TerminalInput extends Component {
   constructor (props) {
@@ -19,10 +13,15 @@ class TerminalInput extends Component {
     this.state = {
       previousInput: this.props.initialMessage,
       input: '',
-      persistentInput: '~ $ '
+      persistentInput: '~ $ ',
+      options: this.props.options,
+      currentLocation: this.props.options
     }
+
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.onEnter = this.onEnter.bind(this)
+    this.onTab = this.onTab.bind(this)
   }
 
   // This will handle any input change
@@ -33,32 +32,57 @@ class TerminalInput extends Component {
   // This will handle any "special cases" - e.g. enter and tab
   handleKeyDown (e) {
     const { key } = e
+
     // eslint-disable-next-line
     switch (key) {
       case 'Enter':
-        // also scroll to the bottom
-        const commands = this.state.input.toLowerCase().split(/\s+/g)
-        // eslint-disable-next-line
-        switch (commands[0]) {
-          case 'ls':
-            break
-          case 'run':
-            break
-          case 'cd':
-            break
-        }
-
-        this.setState((prev) => ({
-          previousInput: [...prev.previousInput, prev.input],
-          input: ''
-        }))
+        this.onEnter()
+        this.props.scrollToBottom()
         break
       case 'Tab':
-        // show suggestions
         e.preventDefault()
-        console.log('show suggestions')
+        this.onTab()
+        this.props.scrollToBottom()
         break
     }
+  }
+
+  onEnter () {
+    if (this.state.input === '') { return }
+    // also scroll to the bottom
+    const commands = this.state.input.toLowerCase().split(/\s+/g)
+    const newPrevInput = [...this.state.previousInput]
+    switch (commands[0]) {
+      case 'ls':
+        newPrevInput.push(`~ $ ${this.state.input}`)
+        newPrevInput.push(listOptions(this.state.currentLocation))
+        break
+      case 'run':
+      case 'cd':
+        newPrevInput.push(`~ $ ${this.state.input}`)
+        if (validateCommand(commands, this.state.currentLocation)) {
+          if (commands[0] === 'cd') {
+            // update current location
+            // update persisitent input
+          } else {
+            // run a callback which passes the correct action
+          }
+        } else {
+          newPrevInput.push(`${this.state.input} is an unrecognized command`)
+        }
+        break
+      default:
+        newPrevInput.push(`-bash: ${commands[0]}: command not found`)
+    }
+
+    this.setState((prev) => ({
+      previousInput: newPrevInput,
+      input: ''
+    }))
+  }
+
+  onTab () {
+    console.log('show suggestions - this needs to check whether tab was hit twice ')
   }
 
   render () {

@@ -6,7 +6,7 @@ export const InputContainer = styled.div`
 `
 
 export const OutputLine = styled.p`
-  margin: 0;
+  margin: 0 0 1px 0;
   font-size: 12px;
 `
 
@@ -23,7 +23,8 @@ export const InputLine = styled.p`
     color: #fff;
     flex-grow: 1;
     padding-left: 5px;
-    
+    font-size: 12px;
+
     &:focus {
       border: none;
       outline: none;

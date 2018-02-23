@@ -26,10 +26,15 @@ class Terminal extends Component {
   constructor (props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
+    this.scrollToBottom = this.scrollToBottom.bind(this)
   }
 
   handleClick () {
     this.textInput.focus()
+  }
+
+  scrollToBottom () {
+    this.inputContainer.scrollTop = this.inputContainer.scrollHeight - this.inputContainer.clientHeight
   }
 
   render () {
@@ -40,8 +45,12 @@ class Terminal extends Component {
         <TerminalHeader>
           {colors.map((color, i) => <FakeAction key={i} {...color} />)}
         </TerminalHeader>
-        <TerminalInputContainer onClick={this.handleClick}>
-          <TerminalInput options={options} getRef={(input) => { this.textInput = input }} />
+        <TerminalInputContainer onClick={this.handleClick} innerRef={comp => { this.inputContainer = comp }}>
+          <TerminalInput
+            options={options}
+            getRef={(input) => { this.textInput = input }}
+            scrollToBottom={this.scrollToBottom}
+          />
         </TerminalInputContainer>
       </TerminalWindow>
     )

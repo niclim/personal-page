@@ -1,74 +1,17 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 
 import Terminal from '../../components/Terminal'
 import TextCard from '../../components/TextCard'
+import {
+  PageContainer,
+  HeadingContainer,
+  Content,
+  TextContainer,
+  TerminalContainer,
+  Footer
+} from './Home.style'
 
-const options = {
-  selectMessage: '',
-  message: 'Welcome',
-  children: [
-    {
-      selectMessage: 'Select this message',
-      message: 'Extra information in this thing',
-      children: null
-    },
-    {
-      selectMessage: 'Select this other message',
-      message: 'test test',
-      children: null
-    },
-    {
-      selectMessage: 'things of things',
-      message: 'Message is a test for children in children',
-      children: [
-        {
-          selectMessage: 'Select this message',
-          message: 'Extra information in this thing',
-          children: null
-        }
-      ]
-    }
-  ]
-}
-
-const PageContainer = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-const HeadingContainer = styled.div`
-  text-align: center;
-`
-
-const Content = styled.section`
-  padding: 10px 30px;
-  flex-grow: 2;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-    align-content: center;
-  }
-`
-
-const TextContainer = styled.div`
-  display: flex;
-`
-
-const TerminalContainer = styled.div`
-  flex-grow: 1;
-  display: flex;
-`
-
-const Footer = styled.footer`
-  background-color: #333;
-  padding: 10px;
-`
+import { options } from '../../data'
 
 class Home extends Component {
   render () {
