@@ -53,6 +53,7 @@ class Terminal extends Component {
             options={options}
             getRef={(input) => { this.textInput = input }}
             scrollToBottom={this.scrollToBottom}
+            updateSelected={this.props.updateSelected}
           />
         </TerminalInputContainer>
       </TerminalWindow>

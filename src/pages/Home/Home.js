@@ -14,6 +14,18 @@ import {
 import { options } from '../../data'
 
 class Home extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      currentSelected: null
+    }
+    this.updateSelected = this.updateSelected.bind(this)
+  }
+
+  updateSelected (name) {
+    this.setState({ currentSelected: name })
+  }
+
   render () {
     return (
       <PageContainer>
@@ -22,11 +34,11 @@ class Home extends Component {
           <h2>Full Stack Web Developer</h2>
         </HeadingContainer>
         <Content>
-          {/* <TextContainer>
-            <TextCard />
-          </TextContainer> */}
+          <TextContainer>
+            <TextCard>{this.state.currentSelected}</TextCard>
+          </TextContainer>
           <TerminalContainer>
-            <Terminal options={options} />
+            <Terminal options={options} updateSelected={this.updateSelected} />
           </TerminalContainer>
         </Content>
         <Footer>

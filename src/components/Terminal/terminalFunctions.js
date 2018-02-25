@@ -35,7 +35,7 @@ const getParent = (currentLocationName, options) => {
   return parent
 }
 
-const getItem = (currentNode, name, type) => currentNode.children.find(child => type === child.type && name === child.name)
+export const getItem = (currentNode, name, type) => currentNode.children.find(child => type === child.type && name === child.name)
 
 // This is not going to fully work like the inbuilt terminal because its a lot of work
 const resolvePath = (path, currentLocation, options) => {
@@ -84,7 +84,7 @@ export const validateCommand = (currentLocation, commands, options) => {
 export const changeDirectory = (currentLocation, commands, options) => {
   const newLocation = resolvePath(commands[1], currentLocation, options)
   const path = createPathName(newLocation, options)
-  console.log(newLocation, path)
+
   return {
     newLocation,
     path

@@ -8,7 +8,8 @@ import {
 import {
   listOptions,
   validateCommand,
-  changeDirectory
+  changeDirectory,
+  getItem
 } from './terminalFunctions'
 
 class TerminalInput extends Component {
@@ -75,10 +76,11 @@ class TerminalInput extends Component {
               persistentInput: path
             })
           } else {
-            // run a callback which passes the correct action
+            const item = getItem(this.state.currentLocation, commands[1], 'file')
+            this.props.updateSelected(item.action)
           }
         } else {
-          newPrevInput.push(`${this.state.input} is an unrecognized command`)
+          newPrevInput.push(`${this.state.input} is not a valid command`)
         }
         break
       default:

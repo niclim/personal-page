@@ -14,10 +14,10 @@ const TextWrapper = styled.div`
     height: 325px;
   }
 `
-const TextCard = () => {
+const TextCard = (props) => {
   return (
     <TextWrapper>
-      Hello
+      {props.children}
     </TextWrapper>
   )
 }
