@@ -20,7 +20,7 @@ export const TerminalInputContainer = styled.div`
   background-color: #272727;
   padding: 10px;
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `
 
 export const FakeAction = styled.div`

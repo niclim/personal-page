@@ -5,7 +5,11 @@ import {
   InputLine
 } from './TerminalInput.styled'
 
-import { listOptions, validateCommand } from './terminalFunctions'
+import {
+  listOptions,
+  validateCommand,
+  changeDirectory
+} from './terminalFunctions'
 
 class TerminalInput extends Component {
   constructor (props) {
@@ -13,7 +17,7 @@ class TerminalInput extends Component {
     this.state = {
       previousInput: this.props.initialMessage,
       input: '',
-      persistentInput: '~ $ ',
+      persistentInput: '~',
       options: this.props.options,
       currentLocation: this.props.options
     }
@@ -33,6 +37,7 @@ class TerminalInput extends Component {
   handleKeyDown (e) {
     const { key } = e
 
+    // Probably add an up arrow as well
     // eslint-disable-next-line
     switch (key) {
       case 'Enter':
@@ -54,16 +59,21 @@ class TerminalInput extends Component {
     const newPrevInput = [...this.state.previousInput]
     switch (commands[0]) {
       case 'ls':
-        newPrevInput.push(`~ $ ${this.state.input}`)
+        newPrevInput.push(`${this.state.persistentInput} $ ${this.state.input}`)
         newPrevInput.push(listOptions(this.state.currentLocation))
         break
       case 'run':
       case 'cd':
-        newPrevInput.push(`~ $ ${this.state.input}`)
-        if (validateCommand(commands, this.state.currentLocation)) {
+        newPrevInput.push(`${this.state.persistentInput} $ ${this.state.input}`)
+        if (validateCommand(this.state.currentLocation, commands, this.state.options)) {
           if (commands[0] === 'cd') {
             // update current location
             // update persisitent input
+            const { newLocation, path } = changeDirectory(this.state.currentLocation, commands, this.state.options)
+            this.setState({
+              currentLocation: newLocation,
+              persistentInput: path
+            })
           } else {
             // run a callback which passes the correct action
           }
@@ -92,7 +102,7 @@ class TerminalInput extends Component {
       <InputContainer>
         {previousInput.map((text, i) => <OutputLine key={i}>{text}</OutputLine>)}
         <InputLine>
-          <span>{persistentInput}</span>
+          <span>{persistentInput} $</span>
           <input value={input} onKeyDown={this.handleKeyDown} onChange={this.handleChange} ref={this.props.getRef} />
         </InputLine>
       </InputContainer>

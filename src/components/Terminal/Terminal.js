@@ -34,7 +34,10 @@ class Terminal extends Component {
   }
 
   scrollToBottom () {
-    this.inputContainer.scrollTop = this.inputContainer.scrollHeight - this.inputContainer.clientHeight
+    // Ensures this gets run at the end
+    setTimeout(() => {
+      this.inputContainer.scrollTop = this.inputContainer.scrollHeight - this.inputContainer.clientHeight
+    }, 0)
   }
 
   render () {
