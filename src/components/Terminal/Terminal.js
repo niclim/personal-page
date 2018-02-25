@@ -4,7 +4,7 @@ import {
   TerminalHeader,
   TerminalInputContainer,
   FakeAction
-} from './Terminal.styled'
+} from './Terminal.style'
 import TerminalInput from './TerminalInput'
 
 const colors = [

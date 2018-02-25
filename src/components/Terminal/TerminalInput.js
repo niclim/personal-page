@@ -3,7 +3,7 @@ import {
   InputContainer,
   OutputLine,
   InputLine
-} from './TerminalInput.styled'
+} from './TerminalInput.style'
 
 import {
   listOptions,
