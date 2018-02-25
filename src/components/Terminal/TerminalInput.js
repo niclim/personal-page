@@ -16,7 +16,9 @@ class TerminalInput extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      previousInput: this.props.initialMessage,
+      terminalMessages: this.props.initialMessage,
+      previousInputCommands: [],
+      currentIndex: 0,
       input: '',
       persistentInput: '~',
       options: this.props.options,
@@ -27,6 +29,7 @@ class TerminalInput extends Component {
     this.handleKeyDown = this.handleKeyDown.bind(this)
     this.onEnter = this.onEnter.bind(this)
     this.onTab = this.onTab.bind(this)
+    this.onArrow = this.onArrow.bind(this)
   }
 
   // This will handle any input change
@@ -38,7 +41,6 @@ class TerminalInput extends Component {
   handleKeyDown (e) {
     const { key } = e
 
-    // Probably add an up arrow as well
     // eslint-disable-next-line
     switch (key) {
       case 'Enter':
@@ -50,6 +52,21 @@ class TerminalInput extends Component {
         this.onTab()
         this.props.scrollToBottom()
         break
+      case 'ArrowUp':
+      case 'ArrowDown':
+        e.preventDefault()
+        this.onArrow(key)
+        break
+      case 'c':
+        if (e.ctrlKey) {
+          this.setState(prev => {
+            const newMessage = `${prev.persistentInput} $ ${prev.input}`
+            return {
+              terminalMessages: [...prev.terminalMessages, newMessage],
+              input: ''
+            }
+          })
+        }
     }
   }
 
@@ -57,15 +74,15 @@ class TerminalInput extends Component {
     if (this.state.input === '') { return }
     // also scroll to the bottom
     const commands = this.state.input.toLowerCase().split(/\s+/g)
-    const newPrevInput = [...this.state.previousInput]
+    const terminalMessages = [...this.state.terminalMessages]
     switch (commands[0]) {
       case 'ls':
-        newPrevInput.push(`${this.state.persistentInput} $ ${this.state.input}`)
-        newPrevInput.push(listOptions(this.state.currentLocation))
+        terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
+        terminalMessages.push(listOptions(this.state.currentLocation))
         break
       case 'run':
       case 'cd':
-        newPrevInput.push(`${this.state.persistentInput} $ ${this.state.input}`)
+        terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
         if (validateCommand(this.state.currentLocation, commands, this.state.options)) {
           if (commands[0] === 'cd') {
             // update current location
@@ -80,16 +97,18 @@ class TerminalInput extends Component {
             this.props.updateSelected(item.action)
           }
         } else {
-          newPrevInput.push(`${this.state.input} is not a valid command`)
+          terminalMessages.push(`${this.state.input} is not a valid command`)
         }
         break
       default:
-        newPrevInput.push(`-bash: ${commands[0]}: command not found`)
+        terminalMessages.push(`-bash: ${commands[0]}: command not found`)
     }
 
     this.setState((prev) => ({
-      previousInput: newPrevInput,
-      input: ''
+      terminalMessages,
+      input: '',
+      previousInputCommands: [...prev.previousInputCommands, prev.input],
+      currentIndex: prev.previousInputCommands.length + 1 // We want this to start "out of range" of the array
     }))
   }
 
@@ -97,12 +116,25 @@ class TerminalInput extends Component {
     console.log('show suggestions - this needs to check whether tab was hit twice ')
   }
 
+  onArrow (direction) {
+    // previous input to check
+    const modifier = direction === 'ArrowUp' ? -1 : 1
+    const { previousInputCommands, currentIndex } = this.state
+    const index = currentIndex + modifier
+    if (previousInputCommands[index] !== undefined) {
+      this.setState({
+        input: previousInputCommands[index],
+        currentIndex: index
+      })
+    }
+  }
+
   render () {
-    const { previousInput, input, persistentInput } = this.state
+    const { terminalMessages, input, persistentInput } = this.state
 
     return (
       <InputContainer>
-        {previousInput.map((text, i) => <OutputLine key={i}>{text}</OutputLine>)}
+        {terminalMessages.map((text, i) => <OutputLine key={i}>{text}</OutputLine>)}
         <InputLine>
           <span>{persistentInput} $</span>
           <input value={input} onKeyDown={this.handleKeyDown} onChange={this.handleChange} ref={this.props.getRef} />
