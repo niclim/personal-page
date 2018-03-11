@@ -7,13 +7,10 @@ make this like a folder structure
 
 - cookie to have last login
 - cd ../
-- node and node.js files
 - speak
 - close, hide, maximize
-- responsive
-- tab complete
-- clear, different stuff
-- spacing issue
+- different stuff
+- color coding for files and folders
 
 - maybe this updates the state and we show something in a side container
 - things that i want to show
@@ -25,6 +22,3 @@ make this like a folder structure
   - mini game or something
 
 also show a basic single page view
-
-Tech to add?
-- flow

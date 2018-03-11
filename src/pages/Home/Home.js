@@ -7,10 +7,11 @@ import {
   PageContainer,
   HeadingContainer,
   Content,
-  ItemContainer
+  ItemContainer,
+  AboutContainer
 } from './Home.style'
 
-import { options } from '../../data'
+import { options, textCardInfo } from '../../data'
 
 class Home extends Component {
   constructor (props) {
@@ -31,18 +32,26 @@ class Home extends Component {
         <FadeUp delay={50} duration={250}>
           <HeadingContainer>
             <h1>Nicholas Lim</h1>
-            <h2>JavaScript Developer</h2>
+            <h2>JavaScript / React / Redux Developer</h2>
           </HeadingContainer>
         </FadeUp>
         <FadeUp delay={150} duration={250}>
           <Content>
             <ItemContainer>
-              <TextCard>{this.state.currentSelected}</TextCard>
+              <TextCard
+                {...textCardInfo[this.state.currentSelected || 'default']}
+              />
             </ItemContainer>
             <ItemContainer>
               <Terminal options={options} updateSelected={this.updateSelected} />
             </ItemContainer>
           </Content>
+        </FadeUp>
+        <FadeUp delay={150} duration={350}>
+          <AboutContainer>
+            <h2>Don't want to use the terminal?</h2>
+            <p>Click here to see a different view</p>
+          </AboutContainer>
         </FadeUp>
       </PageContainer>
     )

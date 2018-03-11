@@ -79,13 +79,19 @@ class TerminalInput extends Component {
     if (this.state.input === '') { return }
     // also scroll to the bottom
     const commands = getCommands(this.state.input)
-    const terminalMessages = [...this.state.terminalMessages]
-    terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
+    let terminalMessages = [...this.state.terminalMessages]
+    terminalMessages = [...terminalMessages, `${this.state.persistentInput} $ ${this.state.input}`]
     switch (commands[0]) {
       case 'ls':
-        terminalMessages.push(listOptions(this.state.currentLocation))
+        terminalMessages = [...terminalMessages, listOptions(this.state.currentLocation)]
         break
-      case 'run':
+      case 'help':
+        this.props.updateSelected('default')
+        break
+      case 'clear':
+        terminalMessages = []
+        break
+      case 'node':
       case 'cd':
         if (validateCommand(this.state.currentLocation, commands, this.state.options)) {
           if (commands[0] === 'cd') {
@@ -101,11 +107,11 @@ class TerminalInput extends Component {
             this.props.updateSelected(item.action)
           }
         } else {
-          terminalMessages.push(`${this.state.input} is not a valid command`)
+          terminalMessages = [...terminalMessages, `${this.state.input} is not a valid command`]
         }
         break
       default:
-        terminalMessages.push(`-bash: ${commands[0]}: command not found`)
+        terminalMessages = [...terminalMessages, `-bash: ${commands[0]}: command not found`]
     }
 
     this.setState((prev) => ({

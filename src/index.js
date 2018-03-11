@@ -13,6 +13,19 @@ injectGlobal`
     height: 100%;
   }
 
+  h1 {
+    color: #000;
+  }
+
+  h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    color: #333;
+  }
+
+  p {
+    color: #444;
+  }
+
   #root {
     height: 100%;
     display: flex;

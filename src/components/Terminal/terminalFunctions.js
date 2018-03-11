@@ -1,6 +1,6 @@
 const validCommands = [
   {
-    name: 'run',
+    name: 'node',
     uses: 'file'
   },
   {
@@ -9,6 +9,14 @@ const validCommands = [
   },
   {
     name: 'ls',
+    uses: 'null'
+  },
+  {
+    name: 'help',
+    uses: 'null'
+  },
+  {
+    name: 'clear',
     uses: 'null'
   }
 ]
@@ -25,7 +33,7 @@ const createRegExp = (string) => {
 
 export const listOptions = (currentLocation) => {
   return currentLocation.children.reduce((acc, next) => {
-    return `${acc} ${next.name}${next.type === 'file' ? '.exe' : ''}`
+    return `${acc} ${next.name}${next.type === 'file' ? '.js' : ''}`
   }, '')
 }
 
@@ -60,7 +68,7 @@ const getParent = (currentLocationName, options) => {
   return parent
 }
 
-export const getItem = (currentNode, name, type) => currentNode.children.find(child => type === child.type && name === child.name)
+export const getItem = (currentNode, name, type) => currentNode.children.find(child => type === child.type && createRegExp(`${child.name}(\\.js)?`).test(name))
 
 // This is not going to fully work like the inbuilt terminal because its a lot of work
 const resolvePath = (path, currentLocation, options) => {
@@ -97,9 +105,10 @@ const createPathName = (location, options) => {
 
 export const validateCommand = (currentLocation, inputCommands, options) => {
   let type = 'invalid'
-  if (inputCommands[0] === 'run') {
+  if (inputCommands[0] === 'node') {
     type = 'file'
-    const validItems = currentLocation.children.filter(item => item.type === type && item.name === inputCommands[1])
+    console.log(inputCommands)
+    const validItems = currentLocation.children.filter(item => item.type === type && createRegExp(`${item.name}(\\.js)?`).test(inputCommands[1]))
     return validItems.length === 1
   } else if (inputCommands[0] === 'cd') {
     type = 'folder'

@@ -3,9 +3,9 @@ import styled from 'styled-components'
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 60%;
-  padding-bottom: 20%;
+  justify-content: space-around;
   margin: auto;
+  height: 100%;
 
   @media screen and (max-width: 768px) {
     height: initial;
@@ -14,20 +14,17 @@ export const PageContainer = styled.div`
 
 export const HeadingContainer = styled.div`
   text-align: center;
-
-  h2 {
-    font-weight: normal;
-  }
 `
 
 export const Content = styled.section`
   padding: 10px 30px;
-  flex-grow: 2;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 380px;
 
   @media screen and (max-width: 768px) {
+    height: initial;
     flex-direction: column;
     align-items: stretch;
     align-content: center;
@@ -36,5 +33,15 @@ export const Content = styled.section`
 
 export const ItemContainer = styled.div`
   display: flex;
-  margin: 10px;
+  margin: 10px 50px;
+
+  @media screen and (max-width: 768px) {
+    margin: 10px;
+  }
+`
+export const AboutContainer = styled.div`
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
 `

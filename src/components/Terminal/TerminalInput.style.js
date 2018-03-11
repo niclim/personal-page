@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
 export const InputContainer = styled.div`
-  font-family: monospace;
-  color: #fff;
+  p {
+    font-family: monospace;
+    color: #fff;
+  }
 `
 
 export const OutputLine = styled.p`
