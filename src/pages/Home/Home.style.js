@@ -1,13 +1,23 @@
 import styled from 'styled-components'
 
 export const PageContainer = styled.div`
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 60%;
+  padding-bottom: 20%;
+  margin: auto;
+
+  @media screen and (max-width: 768px) {
+    height: initial;
+  }
 `
 
 export const HeadingContainer = styled.div`
   text-align: center;
+
+  h2 {
+    font-weight: normal;
+  }
 `
 
 export const Content = styled.section`
@@ -24,16 +34,7 @@ export const Content = styled.section`
   }
 `
 
-export const TextContainer = styled.div`
+export const ItemContainer = styled.div`
   display: flex;
-`
-
-export const TerminalContainer = styled.div`
-  flex-grow: 1;
-  display: flex;
-`
-
-export const Footer = styled.footer`
-  background-color: #333;
-  padding: 10px;
+  margin: 10px;
 `

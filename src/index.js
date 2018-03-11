@@ -15,6 +15,11 @@ injectGlobal`
 
   #root {
     height: 100%;
+    display: flex;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+    }
   }
 `
 

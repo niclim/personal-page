@@ -6,9 +6,7 @@ import {
   PageContainer,
   HeadingContainer,
   Content,
-  TextContainer,
-  TerminalContainer,
-  Footer
+  ItemContainer
 } from './Home.style'
 
 import { options } from '../../data'
@@ -31,19 +29,16 @@ class Home extends Component {
       <PageContainer>
         <HeadingContainer>
           <h1>Nicholas Lim</h1>
-          <h2>Full Stack Web Developer</h2>
+          <h2>JavaScript Developer</h2>
         </HeadingContainer>
         <Content>
-          <TextContainer>
+          <ItemContainer>
             <TextCard>{this.state.currentSelected}</TextCard>
-          </TextContainer>
-          <TerminalContainer>
+          </ItemContainer>
+          <ItemContainer>
             <Terminal options={options} updateSelected={this.updateSelected} />
-          </TerminalContainer>
+          </ItemContainer>
         </Content>
-        <Footer>
-          This is the footer
-        </Footer>
       </PageContainer>
     )
   }

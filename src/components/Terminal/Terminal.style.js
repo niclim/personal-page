@@ -2,8 +2,10 @@ import styled from 'styled-components'
 
 export const TerminalWindow = styled.div`
   margin: auto;
-  max-width: 550px;
-  width: 100%;
+  width: 550px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 `
 
 export const TerminalHeader = styled.div`
