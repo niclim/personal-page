@@ -28,13 +28,13 @@ class Home extends Component {
   render () {
     return (
       <PageContainer>
-        <FadeUp delay={50} duration={150}>
+        <FadeUp delay={50} duration={250}>
           <HeadingContainer>
             <h1>Nicholas Lim</h1>
             <h2>JavaScript Developer</h2>
           </HeadingContainer>
         </FadeUp>
-        <FadeUp delay={150} duration={150}>
+        <FadeUp delay={150} duration={250}>
           <Content>
             <ItemContainer>
               <TextCard>{this.state.currentSelected}</TextCard>

@@ -22,7 +22,8 @@ export const InputLine = styled.p`
     font-family: monospace;
     color: #fff;
     flex-grow: 1;
-    padding-left: 5px;
+    padding: 0;
+    padding-left: 7px;
     font-size: 12px;
 
     &:focus {

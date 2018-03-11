@@ -54,6 +54,7 @@ class Terminal extends Component {
             getRef={(input) => { this.textInput = input }}
             scrollToBottom={this.scrollToBottom}
             updateSelected={this.props.updateSelected}
+            initialMessage={['Welcome!', 'Press tab twice to get a list of available commands']}
           />
         </TerminalInputContainer>
       </TerminalWindow>

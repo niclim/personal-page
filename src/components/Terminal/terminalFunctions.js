@@ -13,6 +13,16 @@ const validCommands = [
   }
 ]
 
+// This handles weird user inputs from the terminal
+const createRegExp = (string) => {
+  try {
+    return new RegExp(string)
+  } catch (e) {
+    // Really bad way to ensure the regexp never passes....
+    return new RegExp('w43sed5rftygbuhnji43s5edrctyvubhsr4c6tyvu')
+  }
+}
+
 export const listOptions = (currentLocation) => {
   return currentLocation.children.reduce((acc, next) => {
     return `${acc} ${next.name}${next.type === 'file' ? '.exe' : ''}`
@@ -54,7 +64,7 @@ export const getItem = (currentNode, name, type) => currentNode.children.find(ch
 
 // This is not going to fully work like the inbuilt terminal because its a lot of work
 const resolvePath = (path, currentLocation, options) => {
-  if (path === '') { return currentLocation }
+  if (!path) { return currentLocation }
   let currentNode = currentLocation
   // path is a string with split by /
   path.split('/').every(val => {
@@ -111,7 +121,7 @@ export const getSuggestions = (currentLocation, inputCommands, options) => {
   let suggestions = []
   if (inputCommands.length === 1) {
     suggestions = validCommands
-      .filter(validCommand => new RegExp(`^${inputCommands}`).test(validCommand.name))
+      .filter(validCommand => createRegExp(`^${inputCommands}`).test(validCommand.name))
       .map(command => command.name)
   } else {
     const type = validCommands.find(val => val.name === inputCommands[0])
@@ -122,13 +132,18 @@ export const getSuggestions = (currentLocation, inputCommands, options) => {
     const splitPath = lastCommand.split('/')
     // My brain is tried so I can't think of a better name
     // But this is the last bit of the path that needs to be checked as a file/folder
-    const lastCommandBit = splitPath[splitPath.length - 1]
-    const currentNode = resolvePath(inputCommands[inputCommands.length - 1], currentLocation, options)
-
+    const lastCommandBit = splitPath.pop()
+    const currentNode = resolvePath(splitPath.join('/'), currentLocation, options)
     suggestions = currentNode.children
-      .filter(child => new RegExp(`^${lastCommandBit}`).test(child.name) && type === child.type)
-      .map(command => command.name)
+      .filter(child => createRegExp(`^${lastCommandBit}`).test(child.name) && type === child.type)
+      .map(command => `${splitPath.join('/')}${splitPath.length > 0 ? '/' : ''}${command.name}`)
   }
 
   return suggestions
+}
+
+export const getCommands = (input) => {
+  const commands = input.toLowerCase().split(/\s+/g)
+  if (commands.length > 1 && commands[0] === '') { commands.shift() }
+  return commands
 }

@@ -10,7 +10,8 @@ import {
   validateCommand,
   changeDirectory,
   getItem,
-  getSuggestions
+  getSuggestions,
+  getCommands
 } from './terminalFunctions'
 
 class TerminalInput extends Component {
@@ -74,16 +75,10 @@ class TerminalInput extends Component {
     }
   }
 
-  getCommands () {
-    const commands = this.state.input.toLowerCase().split(/\s+/g)
-    if (commands.length > 1 && commands[0] === '') { commands.shift() }
-    return commands
-  }
-
   onEnter () {
     if (this.state.input === '') { return }
     // also scroll to the bottom
-    const commands = this.getCommands()
+    const commands = getCommands(this.state.input)
     const terminalMessages = [...this.state.terminalMessages]
     terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
     switch (commands[0]) {
@@ -122,10 +117,17 @@ class TerminalInput extends Component {
   }
 
   onTab () {
-    const commands = this.getCommands()
+    const commands = getCommands(this.state.input)
+    // console.log(this.state.currentLocation, commands, this.state.options)
     const suggestions = getSuggestions(this.state.currentLocation, commands, this.state.options)
 
-    if (this.state.tabPressedRecently) {
+    if (suggestions.length === 1) {
+      this.setState((prev) => ({
+        input: prev.input.split(/\s+/g).length > 1
+          ? `${prev.input.replace(/(^.*\s).+?$/, '$1')}${suggestions[0]}`
+          : suggestions[0]
+      }))
+    } else if (suggestions.length !== 0 && this.state.tabPressedRecently) {
       const terminalMessages = [...this.state.terminalMessages]
       terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
       terminalMessages.push(...suggestions)
@@ -183,5 +185,5 @@ class TerminalInput extends Component {
 export default TerminalInput
 
 TerminalInput.defaultProps = {
-  initialMessage: ['hi', 'hello']
+  initialMessage: []
 }
