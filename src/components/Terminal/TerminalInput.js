@@ -58,6 +58,7 @@ class TerminalInput extends Component {
       case 'ArrowDown':
         e.preventDefault()
         this.onArrow(key)
+        this.props.scrollToBottom()
         break
       case 'c':
         if (e.ctrlKey) {
@@ -68,6 +69,7 @@ class TerminalInput extends Component {
               input: ''
             }
           })
+          this.props.scrollToBottom()
         }
     }
   }
@@ -83,14 +85,13 @@ class TerminalInput extends Component {
     // also scroll to the bottom
     const commands = this.getCommands()
     const terminalMessages = [...this.state.terminalMessages]
+    terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
     switch (commands[0]) {
       case 'ls':
-        terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
         terminalMessages.push(listOptions(this.state.currentLocation))
         break
       case 'run':
       case 'cd':
-        terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
         if (validateCommand(this.state.currentLocation, commands, this.state.options)) {
           if (commands[0] === 'cd') {
             // update current location
