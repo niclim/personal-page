@@ -9,7 +9,8 @@ import {
   listOptions,
   validateCommand,
   changeDirectory,
-  getItem
+  getItem,
+  getSuggestions
 } from './terminalFunctions'
 
 class TerminalInput extends Component {
@@ -22,7 +23,8 @@ class TerminalInput extends Component {
       input: '',
       persistentInput: '~',
       options: this.props.options,
-      currentLocation: this.props.options
+      currentLocation: this.props.options,
+      tabPressedRecently: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -70,10 +72,16 @@ class TerminalInput extends Component {
     }
   }
 
+  getCommands () {
+    const commands = this.state.input.toLowerCase().split(/\s+/g)
+    if (commands.length > 1 && commands[0] === '') { commands.shift() }
+    return commands
+  }
+
   onEnter () {
     if (this.state.input === '') { return }
     // also scroll to the bottom
-    const commands = this.state.input.toLowerCase().split(/\s+/g)
+    const commands = this.getCommands()
     const terminalMessages = [...this.state.terminalMessages]
     switch (commands[0]) {
       case 'ls':
@@ -113,7 +121,25 @@ class TerminalInput extends Component {
   }
 
   onTab () {
-    console.log('show suggestions - this needs to check whether tab was hit twice ')
+    const commands = this.getCommands()
+    const suggestions = getSuggestions(this.state.currentLocation, commands, this.state.options)
+
+    if (this.state.tabPressedRecently) {
+      const terminalMessages = [...this.state.terminalMessages]
+      terminalMessages.push(`${this.state.persistentInput} $ ${this.state.input}`)
+      terminalMessages.push(...suggestions)
+      this.setState((prev) => ({
+        terminalMessages,
+        previousInputCommands: [...prev.previousInputCommands, prev.input],
+        tabPressedRecently: false,
+        currentIndex: prev.previousInputCommands.length + 1 // We want this to start "out of range" of the array
+      }))
+    } else {
+      this.setState({ tabPressedRecently: true })
+      setTimeout(() => {
+        this.setState({ tabPressedRecently: false })
+      }, 1000)
+    }
   }
 
   onArrow (direction) {
@@ -137,7 +163,16 @@ class TerminalInput extends Component {
         {terminalMessages.map((text, i) => <OutputLine key={i}>{text}</OutputLine>)}
         <InputLine>
           <span>{persistentInput} $</span>
-          <input value={input} onKeyDown={this.handleKeyDown} onChange={this.handleChange} ref={this.props.getRef} />
+          <input
+            value={input}
+            onKeyDown={this.handleKeyDown}
+            onChange={this.handleChange}
+            ref={this.props.getRef}
+            autoComplete='off'
+            autoCorrect='off'
+            autoCapitalize='off'
+            spellCheck='false'
+          />
         </InputLine>
       </InputContainer>
     )

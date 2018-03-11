@@ -1,3 +1,18 @@
+const validCommands = [
+  {
+    name: 'run',
+    uses: 'file'
+  },
+  {
+    name: 'cd',
+    uses: 'folder'
+  },
+  {
+    name: 'ls',
+    uses: 'null'
+  }
+]
+
 export const listOptions = (currentLocation) => {
   return currentLocation.children.reduce((acc, next) => {
     return `${acc} ${next.name}${next.type === 'file' ? '.exe' : ''}`
@@ -39,6 +54,7 @@ export const getItem = (currentNode, name, type) => currentNode.children.find(ch
 
 // This is not going to fully work like the inbuilt terminal because its a lot of work
 const resolvePath = (path, currentLocation, options) => {
+  if (path === '') { return currentLocation }
   let currentNode = currentLocation
   // path is a string with split by /
   path.split('/').every(val => {
@@ -69,24 +85,50 @@ const createPathName = (location, options) => {
   return path.join('/')
 }
 
-export const validateCommand = (currentLocation, commands, options) => {
+export const validateCommand = (currentLocation, inputCommands, options) => {
   let type = 'invalid'
-  if (commands[0] === 'run') {
+  if (inputCommands[0] === 'run') {
     type = 'file'
-    const validItems = currentLocation.children.filter(item => item.type === type && item.name === commands[1])
+    const validItems = currentLocation.children.filter(item => item.type === type && item.name === inputCommands[1])
     return validItems.length === 1
-  } else if (commands[0] === 'cd') {
+  } else if (inputCommands[0] === 'cd') {
     type = 'folder'
-    return !!resolvePath(commands[1], currentLocation, options)
+    return !!resolvePath(inputCommands[1], currentLocation, options)
   }
 }
 
-export const changeDirectory = (currentLocation, commands, options) => {
-  const newLocation = resolvePath(commands[1], currentLocation, options)
+export const changeDirectory = (currentLocation, inputCommands, options) => {
+  const newLocation = resolvePath(inputCommands[1], currentLocation, options)
   const path = createPathName(newLocation, options)
 
   return {
     newLocation,
     path
   }
+}
+
+export const getSuggestions = (currentLocation, inputCommands, options) => {
+  let suggestions = []
+  if (inputCommands.length === 1) {
+    suggestions = validCommands
+      .filter(validCommand => new RegExp(`^${inputCommands}`).test(validCommand.name))
+      .map(command => command.name)
+  } else {
+    const type = validCommands.find(val => val.name === inputCommands[0])
+      ? validCommands.find(val => val.name === inputCommands[0]).uses
+      : 'file'
+
+    const lastCommand = inputCommands[inputCommands.length - 1]
+    const splitPath = lastCommand.split('/')
+    // My brain is tried so I can't think of a better name
+    // But this is the last bit of the path that needs to be checked as a file/folder
+    const lastCommandBit = splitPath[splitPath.length - 1]
+    const currentNode = resolvePath(inputCommands[inputCommands.length - 1], currentLocation, options)
+
+    suggestions = currentNode.children
+      .filter(child => new RegExp(`^${lastCommandBit}`).test(child.name) && type === child.type)
+      .map(command => command.name)
+  }
+
+  return suggestions
 }
