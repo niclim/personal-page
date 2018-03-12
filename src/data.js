@@ -6,8 +6,8 @@ export const options = {
   children: [
     {
       type: 'file',
-      name: 'github',
-      action: 'showGithub'
+      name: 'social-media',
+      action: 'showSocialMedia'
     },
     {
       type: 'folder',
@@ -26,13 +26,24 @@ export const options = {
 export const textCardInfo = {
   default: {
     title: 'How to use this',
-    image: '',
+    type: 'standard',
+    image: null,
     description: 'Type stuff into the terminal'
   },
-  showGithub: {
-    title: 'Github',
-    image: './images/Octocat.jpg',
-    description: '',
-    link: 'https://github.com/niclim'
+  showSocialMedia: {
+    title: 'Social Media',
+    type: 'list',
+    listItems: [
+      {
+        text: 'Github',
+        image: './images/Octocat.jpg',
+        link: 'https://github.com/niclim'
+      },
+      {
+        text: 'LinkedIn',
+        image: './images/linkedIn.png',
+        link: 'https://www.linkedin.com/in/nicholas-lim49/'
+      }
+    ]
   }
 }

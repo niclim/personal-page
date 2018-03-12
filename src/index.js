@@ -26,6 +26,11 @@ injectGlobal`
     color: #444;
   }
 
+  a {
+    text-decoration: none;
+    color: #d0021b;
+  }
+
   #root {
     height: 100%;
     display: flex;

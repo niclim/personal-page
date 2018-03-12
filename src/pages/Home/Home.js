@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import {
+  Link,
+  Terminal,
+  TextCard,
+  FadeUp
+} from '../../components'
 
-import Terminal from '../../components/Terminal'
-import TextCard from '../../components/TextCard'
-import FadeUp from '../../components/FadeUp'
 import {
   PageContainer,
   HeadingContainer,
@@ -50,7 +53,7 @@ class Home extends Component {
         <FadeUp delay={150} duration={350}>
           <AboutContainer>
             <h2>Don't want to use the terminal?</h2>
-            <p>Click here to see a different view</p>
+            <p><Link to='/summary'>Click here to see a different view</Link></p>
           </AboutContainer>
         </FadeUp>
       </PageContainer>

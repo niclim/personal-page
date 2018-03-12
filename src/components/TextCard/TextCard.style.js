@@ -23,3 +23,27 @@ export const Image = styled.img`
   max-width: 300px;
   max-height: 100px;
 `
+
+export const ImageSmall = styled.img`
+  max-width: 50px;
+  max-height: 50px;
+`
+export const List = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  
+  a {
+    
+  }
+
+  li {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > * {
+      padding: 0 20px;
+    }
+  }
+`

@@ -1,25 +1,30 @@
 import React from 'react'
-import { TextWrapper, Image } from './TextCard.style'
+import TextCardStandard from './TextCardStandard'
+import TextCardList from './TextCardList'
+import { TextWrapper } from './TextCard.style'
 
-const TextCard = ({ title, image, description, link }) => {
-  const linkProps = { href: link, target: '_blank' }
+const TextCard = props => {
+  const { title, type } = props
+  let element
+
+  switch (type) {
+    case 'standard':
+      element = TextCardStandard
+      break
+    case 'list':
+      element = TextCardList
+      break
+    default:
+      console.warn(`No such type \`${type}\` defined in TextCard `)
+  }
 
   return (
     <TextWrapper>
       <h1>{title}</h1>
       {
         React.createElement(
-          link ? 'a' : React.Fragment,
-          link ? linkProps : {},
-          (
-            <React.Fragment>
-              <Image
-                src={image}
-                alt={title}
-              />
-              <p>{description}</p>
-            </React.Fragment>
-          )
+          element,
+          props
         )
       }
     </TextWrapper>
