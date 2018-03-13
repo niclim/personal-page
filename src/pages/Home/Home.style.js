@@ -7,7 +7,7 @@ export const PageContainer = styled.div`
   margin: auto;
   height: 100%;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     height: initial;
   }
 `
@@ -23,7 +23,7 @@ export const Content = styled.section`
   align-items: center;
   height: 380px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     height: initial;
     flex-direction: column;
     align-items: stretch;
@@ -35,7 +35,7 @@ export const ItemContainer = styled.div`
   display: flex;
   margin: 10px 50px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1370px) {
     margin: 10px;
   }
 `

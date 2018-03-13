@@ -15,8 +15,8 @@ export const options = {
       children: [
         {
           type: 'file',
-          name: 'someproject',
-          action: 'showSomeProject'
+          name: 'towerDefense',
+          action: 'showTowerDefense'
         }
       ]
     }
@@ -43,6 +43,29 @@ export const textCardInfo = {
         text: 'LinkedIn',
         image: './images/linkedIn.png',
         link: 'https://www.linkedin.com/in/nicholas-lim49/'
+      },
+      {
+        text: 'npm',
+        image: './images/npm.png',
+        link: 'https://www.npmjs.com/~niclim'
+      }
+    ]
+  },
+  showTowerDefense: {
+    title: 'Ctional TD',
+    type: 'standard',
+    image: null,
+    description: 'A tower defense game with 50 unique levels and 31 different towers',
+    links: [
+      {
+        name: 'github',
+        icon: 'FaGithubSquare',
+        link: 'https://github.com/niclim/TowerDefense'
+      },
+      {
+        name: 'link',
+        icon: 'FaChain',
+        link: '#'
       }
     ]
   }

@@ -5,36 +5,20 @@ export const TextWrapper = styled.div`
   background-color: #fff;
   padding: 10px 20px;
   margin: auto;
-  max-width: 550px;
-  width: 100%;
+  width: 510px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  min-height: 100px;
-  height: 300px;
+  height: 250px;
   
-  @media screen and (min-width: 768px) {
-    min-width: 300px;
+  @media screen and (min-width: 1370px) {
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    height: 325px;
+    padding: 20px 20px 65px;
   }
 `
 
-export const Image = styled.img`
-  max-width: 300px;
-  max-height: 100px;
-`
-
-export const ImageSmall = styled.img`
-  max-width: 50px;
-  max-height: 50px;
-`
 export const List = styled.ul`
   list-style-type: none;
   padding: 0;
-  
-  a {
-    
-  }
 
   li {
     padding: 10px;
@@ -45,5 +29,16 @@ export const List = styled.ul`
     > * {
       padding: 0 20px;
     }
+  }
+`
+
+export const LinksContainer = styled.div`
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+
+  p {
+    color: inherit;
   }
 `

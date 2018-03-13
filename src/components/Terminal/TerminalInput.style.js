@@ -4,6 +4,7 @@ export const InputContainer = styled.div`
   p {
     font-family: monospace;
     color: #fff;
+    word-break: break-word;
   }
 `
 

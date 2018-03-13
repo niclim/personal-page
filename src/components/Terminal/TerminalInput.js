@@ -17,8 +17,14 @@ import {
 class TerminalInput extends Component {
   constructor (props) {
     super(props)
+    // eslint-disable-next-line no-undef
+    const terminalMessages = localStorage.getItem('lastLogin')
+      // eslint-disable-next-line no-undef
+      ? [`Last login: ${localStorage.getItem('lastLogin')}`, ...this.props.initialMessage]
+      : this.props.initialMessage
+
     this.state = {
-      terminalMessages: this.props.initialMessage,
+      terminalMessages,
       previousInputCommands: [],
       currentIndex: 0,
       input: '',
@@ -33,6 +39,11 @@ class TerminalInput extends Component {
     this.onEnter = this.onEnter.bind(this)
     this.onTab = this.onTab.bind(this)
     this.onArrow = this.onArrow.bind(this)
+  }
+
+  componentDidMount () {
+    // eslint-disable-next-line no-undef
+    localStorage.setItem('lastLogin', new Date())
   }
 
   // This will handle any input change

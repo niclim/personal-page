@@ -1,5 +1,6 @@
 import React from 'react'
-import { ImageSmall, List } from './TextCard.style'
+import { List } from './TextCard.style'
+import Image from '../Image'
 
 const TextCardList = ({ listItems }) => {
   return (
@@ -12,8 +13,11 @@ const TextCardList = ({ listItems }) => {
             (
               <li>
                 {item.image && (
-                  <ImageSmall
-                    src={item.image} alt={item.text}
+                  <Image
+                    src={item.image}
+                    alt={item.text}
+                    maxWidth={50}
+                    maxHeight={50}
                   />
                 )}
                 {item.text}

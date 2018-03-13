@@ -24,7 +24,7 @@ const validCommands = [
 // This handles weird user inputs from the terminal
 const createRegExp = (string) => {
   try {
-    return new RegExp(string)
+    return new RegExp(string, 'i')
   } catch (e) {
     // Really bad way to ensure the regexp never passes....
     return new RegExp('w43sed5rftygbuhnji43s5edrctyvubhsr4c6tyvu')
@@ -107,8 +107,9 @@ export const validateCommand = (currentLocation, inputCommands, options) => {
   let type = 'invalid'
   if (inputCommands[0] === 'node') {
     type = 'file'
-    console.log(inputCommands)
     const validItems = currentLocation.children.filter(item => item.type === type && createRegExp(`${item.name}(\\.js)?`).test(inputCommands[1]))
+    console.log(currentLocation.children)
+    console.log(inputCommands)
     return validItems.length === 1
   } else if (inputCommands[0] === 'cd') {
     type = 'folder'

@@ -1,7 +1,12 @@
 import React from 'react'
-import { Image } from './TextCard.style'
+import { LinksContainer } from './TextCard.style'
+import { FaChain, FaGithubSquare } from 'react-icons/lib/fa'
+import Image from '../Image'
 
-const TextCardStandard = ({ title, image, description, link }) => {
+// Create a lookup to map data to an icon
+const icons = { FaChain, FaGithubSquare }
+
+const TextCardStandard = ({ title, image, description, link, links }) => {
   const linkProps = { href: link, target: '_blank' }
 
   return (
@@ -15,10 +20,26 @@ const TextCardStandard = ({ title, image, description, link }) => {
               <Image
                 src={image}
                 alt={title}
+                maxWidth={300}
+                maxHeight={100}
               />
             )
           }
           <p>{description}</p>
+          {
+            links && (
+              <LinksContainer>
+                {links.map(link => (
+                  <div key={JSON.stringify(link)}>
+                    <a href={link.link}>
+                      {React.createElement(icons[link.icon])}
+                      <p>{link.name}</p>
+                    </a>
+                  </div>
+                ))}
+              </LinksContainer>
+            )
+          }
         </React.Fragment>
       )
     )

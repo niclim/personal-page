@@ -1,24 +1,5 @@
-terminal options and actions to show
-
-make this like a folder structure
-- ls, lists the "directories" and "programs"
-- cd, changes into the directory
-- run, runs a project
-
-- cookie to have last login
 - cd ../
-- speak
-- close, hide, maximize
-- different stuff
 - color coding for files and folders
-
-- maybe this updates the state and we show something in a side container
-- things that i want to show
-- github
-- projects
-- social media
-- easter eggs
-  - something that creates lots of stuff on the screen
-  - mini game or something
-
-also show a basic single page view
+- extend help text
+- add more projects
+- animation when updating the text card
