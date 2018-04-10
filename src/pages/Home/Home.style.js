@@ -34,9 +34,10 @@ export const Content = styled.section`
 export const ItemContainer = styled.div`
   display: flex;
   margin: 10px 50px;
+  height: 335px;
 
   @media screen and (max-width: 1370px) {
-    margin: 10px;
+    margin: 30px;
   }
 `
 export const AboutContainer = styled.div`
