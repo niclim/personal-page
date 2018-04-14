@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run build && git subtree push --prefix build origin gh-pages"
+    "deploy": "yarn run build && git subtree push --prefix build origin gh-pages"
   },
   "proxy": "http://localhost:3001"
 }
