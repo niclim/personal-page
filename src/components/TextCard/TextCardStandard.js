@@ -31,7 +31,7 @@ const TextCardStandard = ({ title, image, description, link, links }) => {
               <LinksContainer>
                 {links.map(link => (
                   <div key={JSON.stringify(link)}>
-                    <a href={link.link}>
+                    <a href={link.link} target='_blank'>
                       {React.createElement(icons[link.icon])}
                       <p>{link.name}</p>
                     </a>

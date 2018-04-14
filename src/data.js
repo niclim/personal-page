@@ -68,7 +68,7 @@ export const textCardInfo = {
       {
         name: 'link',
         icon: 'FaChain',
-        link: '#'
+        link: 'https://niclim.github.io/TowerDefense/index.html'
       }
     ]
   },
