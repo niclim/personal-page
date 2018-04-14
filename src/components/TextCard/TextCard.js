@@ -1,6 +1,7 @@
 import React from 'react'
 import TextCardStandard from './TextCardStandard'
 import TextCardList from './TextCardList'
+import TextCardHelp from './TextCardHelp'
 import { TextWrapper } from './TextCard.style'
 
 const TextCard = props => {
@@ -13,6 +14,9 @@ const TextCard = props => {
       break
     case 'list':
       element = TextCardList
+      break
+    case 'help':
+      element = TextCardHelp
       break
     default:
       console.warn(`No such type \`${type}\` defined in TextCard `)

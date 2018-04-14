@@ -16,13 +16,13 @@ export const PageContainer = styled.div`
   }
 `
 
-export const SocialMediaContainer = styled.div`
+export const ItemContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: baseline;
   flex-flow: wrap;
 `
 
-export const SocialMediaItem = styled.div`
+export const Item = styled.div`
   padding: 10px 20px;
 `

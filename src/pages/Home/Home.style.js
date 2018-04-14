@@ -24,6 +24,7 @@ export const Content = styled.section`
   height: 380px;
 
   @media screen and (max-width: 1370px) {
+    padding: 10px 0px;
     height: initial;
     flex-direction: column;
     align-items: stretch;

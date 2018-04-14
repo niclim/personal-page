@@ -10,6 +10,11 @@ export const options = {
       action: 'showSocialMedia'
     },
     {
+      type: 'file',
+      name: 'skills',
+      action: 'showSkills'
+    },
+    {
       type: 'folder',
       name: 'projects',
       children: [
@@ -25,10 +30,8 @@ export const options = {
 
 export const textCardInfo = {
   default: {
-    title: 'How to use this',
-    type: 'standard',
-    image: null,
-    description: 'Type stuff into the terminal'
+    title: 'Instructions',
+    type: 'help'
   },
   showSocialMedia: {
     title: 'Social Media',
@@ -66,6 +69,37 @@ export const textCardInfo = {
         name: 'link',
         icon: 'FaChain',
         link: '#'
+      }
+    ]
+  },
+  showSkills: {
+    title: 'Skills',
+    type: 'list',
+    listItems: [
+      {
+        text: 'JavaScript',
+        image: './images/js.png',
+        link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
+      },
+      {
+        text: 'React',
+        image: './images/react.png',
+        link: 'https://reactjs.org/'
+      },
+      {
+        text: 'Redux',
+        image: './images/redux.png',
+        link: 'https://redux.js.org/'
+      },
+      {
+        text: 'd3',
+        image: './images/d3.png',
+        link: 'https://d3js.org/'
+      },
+      {
+        text: 'Vue.js',
+        image: './images/vue.png',
+        link: 'https://vuejs.org/'
       }
     ]
   }
