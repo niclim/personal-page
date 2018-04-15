@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-import { Link, FadeUp, Image } from '../../components'
+import { Link, FadeUp, Image, Card } from '../../components'
 import {
   PageContainer,
   ItemContainer,
-  Item
+  Item,
+  ProjectContainer
 } from './Summary.style'
 
 import { textCardInfo } from '../../data'
-
+const { showGraphite, showTowerDefense } = textCardInfo
+const projects = [showGraphite, showTowerDefense]
 class Summary extends Component {
   render () {
     return (
@@ -41,12 +43,25 @@ class Summary extends Component {
             </ItemContainer>
           </div>
         </FadeUp>
-        {/* <FadeUp delay={150} duration={250}>
+        <FadeUp delay={150} duration={250}>
           <div>
             <h2>Projects</h2>
+            <ProjectContainer>
+              {
+                projects.map(project => (
+                  <Card
+                    key={JSON.stringify(project)}
+                    img={project.image}
+                    title={project.title}
+                    description={project.description}
+                    links={project.links}
+                  />
+                ))
+              }
+            </ProjectContainer>
           </div>
-        </FadeUp> */}
-        <FadeUp delay={150} duration={250}>
+        </FadeUp>
+        <FadeUp delay={250} duration={250}>
           <div>
             <h2>Social Media</h2>
             <ItemContainer>

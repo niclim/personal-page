@@ -22,6 +22,11 @@ export const options = {
           type: 'file',
           name: 'towerDefense',
           action: 'showTowerDefense'
+        },
+        {
+          type: 'file',
+          name: 'graphite',
+          action: 'showGraphite'
         }
       ]
     }
@@ -57,7 +62,7 @@ export const textCardInfo = {
   showTowerDefense: {
     title: 'Ctional TD',
     type: 'standard',
-    image: null,
+    image: './images/ctionaltd.png',
     description: 'A tower defense game with 50 unique levels and 31 different towers',
     links: [
       {
@@ -69,6 +74,24 @@ export const textCardInfo = {
         name: 'link',
         icon: 'FaChain',
         link: 'https://niclim.github.io/TowerDefense/index.html'
+      }
+    ]
+  },
+  showGraphite: {
+    title: 'Graphite',
+    type: 'standard',
+    image: './images/graphite.png',
+    description: 'Graphs reddit user comments, built on Vue.js, d3 and express',
+    links: [
+      {
+        name: 'github',
+        icon: 'FaGithubSquare',
+        link: 'https://github.com/niclim/graphite'
+      },
+      {
+        name: 'link',
+        icon: 'FaChain',
+        link: 'https://graph-ite.tk/'
       }
     ]
   },

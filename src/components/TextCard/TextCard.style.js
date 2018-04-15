@@ -45,10 +45,11 @@ export const LinksContainer = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-around;
-  font-size: 20px;
+  font-size: 16px;
 
-  p {
-    color: inherit;
+  svg {
+    height: 1.175em;
+    width: 1.175em;
   }
 `
 
@@ -56,4 +57,8 @@ export const CommandList = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
+`
+
+export const TextInformation = styled.div`
+  display: flex;
 `

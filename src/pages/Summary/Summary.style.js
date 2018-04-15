@@ -26,3 +26,9 @@ export const ItemContainer = styled.div`
 export const Item = styled.div`
   padding: 10px 20px;
 `
+
+export const ProjectContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`

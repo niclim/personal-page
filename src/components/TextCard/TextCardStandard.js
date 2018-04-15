@@ -1,5 +1,5 @@
 import React from 'react'
-import { LinksContainer } from './TextCard.style'
+import { LinksContainer, TextInformation } from './TextCard.style'
 import { FaChain, FaGithubSquare } from 'react-icons/lib/fa'
 import Image from '../Image'
 
@@ -14,33 +14,34 @@ const TextCardStandard = ({ title, image, description, link, links }) => {
       link ? 'a' : React.Fragment,
       link ? linkProps : {},
       (
-        <React.Fragment>
+        <TextInformation>
           {
             image && (
               <Image
                 src={image}
                 alt={title}
-                maxWidth={300}
-                maxHeight={100}
+                maxWidth={250}
               />
             )
           }
-          <p>{description}</p>
-          {
-            links && (
-              <LinksContainer>
-                {links.map(link => (
-                  <div key={JSON.stringify(link)}>
-                    <a href={link.link} target='_blank'>
-                      {React.createElement(icons[link.icon])}
-                      <p>{link.name}</p>
-                    </a>
-                  </div>
-                ))}
-              </LinksContainer>
-            )
-          }
-        </React.Fragment>
+          <div>
+            <p>{description}</p>
+            {
+              links && (
+                <LinksContainer>
+                  {links.map(link => (
+                    <div key={JSON.stringify(link)}>
+                      <p><a href={link.link} target='_blank'>
+                        {React.createElement(icons[link.icon])}
+                        &nbsp;{link.name}
+                      </a></p>
+                    </div>
+                  ))}
+                </LinksContainer>
+              )
+            }
+          </div>
+        </TextInformation>
       )
     )
   )

@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "prod": "npm run build && node server.js"
+    "serve": "node server.js"
   },
   "proxy": "http://localhost:3001"
 }

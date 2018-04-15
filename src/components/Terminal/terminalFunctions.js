@@ -108,8 +108,6 @@ export const validateCommand = (currentLocation, inputCommands, options) => {
   if (inputCommands[0] === 'node') {
     type = 'file'
     const validItems = currentLocation.children.filter(item => item.type === type && createRegExp(`${item.name}(\\.js)?`).test(inputCommands[1]))
-    console.log(currentLocation.children)
-    console.log(inputCommands)
     return validItems.length === 1
   } else if (inputCommands[0] === 'cd') {
     type = 'folder'
