@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { injectGlobal } from 'styled-components'
-
+import ReactGA from 'react-ga'
 import App from './app'
 import registerServiceWorker from './registerServiceWorker'
+
+ReactGA.initialize('UA-118358222-1')
+ReactGA.pageview(window.location.pathname + window.location.search)
 
 injectGlobal`
   html, body {
